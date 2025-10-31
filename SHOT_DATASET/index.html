@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beyond the Individual: Introducing Group Intention Forecasting with SHOT Dataset</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 15%;
+            background: transparent;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 0;
+            background: transparent;
+            color: #333;
+        }
+
+        .title {
+            font-size: 3rem;
+            font-weight: 630;
+            margin-bottom: 30px;
+            line-height: 1.2;
+            color: #2c3e50;
+        }
+
+        .authors {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            color: #34495e;
+        }
+
+        .authors a {
+            color: #3498db;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .authors a:hover {
+            color: #2980b9;
+            text-decoration: underline;
+        }
+
+        .affiliation {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            color: #7f8c8d;
+        }
+
+        .report-type {
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            display: inline-block;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: #34495e;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background: #2c3e50;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .overview-section {
+            margin-bottom: 50px;
+            padding: 40px 0;
+            background: transparent;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            padding: 30px 0;
+            background: transparent;
+            transition: transform 0.3s ease;
+        }
+
+        .section:hover {
+            transform: none;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 2px;
+        }
+
+        /* Supplementary section styling */
+        .supplementary-section {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 60px 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .supplementary-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .supplementary-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #8e44ad 0%, #3498db 100%);
+            border-radius: 2px;
+        }
+
+        .subsection {
+            margin-bottom: 50px;
+            padding: 25px 0;
+            border-left: 4px solid #3498db;
+            padding-left: 30px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 0 15px 15px 0;
+            margin-left: 20px;
+        }
+
+        .subsection-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .subsection-title::before {
+            content: "▶";
+            color: #3498db;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .subsubsection {
+            margin: 30px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            border-left: 3px solid #8e44ad;
+        }
+
+        .subsubsection-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #34495e;
+            margin-bottom: 15px;
+        }
+
+        .abstract-content {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #34495e;
+            text-align: justify;
+            margin: 0 auto;
+            max-width: 900px;
+        }
+
+        .supplementary-content {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #34495e;
+            text-align: justify;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .image-container img {
+            max-width: 85%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            transition: all 0.4s ease;
+        }
+
+        .image-container img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .image-caption {
+            margin-top: 20px;
+            font-style: italic;
+            color: #566573;
+            font-size: 1rem;
+            line-height: 1.5;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 20px;
+        }
+
+        .highlight {
+            font-weight: 700;
+            color: #8e44ad;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .icon {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* 双列布局用于Dataset Statistics */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .stats-item {
+            text-align: center;
+        }
+
+        .stats-item img {
+            max-width: 95%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        /* List styling for supplementary overview */
+        .overview-list {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 20px 0;
+        }
+
+        .overview-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .overview-list > ul > li {
+            margin: 15px 0;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .overview-list ol {
+            margin: 10px 0 10px 20px;
+            color: #34495e;
+        }
+
+        .overview-list ol li {
+            margin: 8px 0;
+            font-weight: 400;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 40px 10%;
+            }
+            
+            .title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 8%;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 200px;
+                justify-content: center;
+            }
+
+            .authors {
+                font-size: 1rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .section {
+                padding: 25px;
+                margin-bottom: 40px;
+            }
+
+            .image-container img {
+                max-width: 95%;
+            }
+
+            .supplementary-section {
+                padding: 25px;
+            }
+
+            .subsection {
+                margin-left: 10px;
+                padding-left: 20px;
+            }
+        }
+
+        /* 小屏设备的进一步优化 */
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .abstract-content {
+                font-size: 1rem;
+            }
+
+            .supplementary-title {
+                font-size: 2rem;
+            }
+
+            .subsection-title {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* 添加平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* 添加加载动画 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1 class="title">Beyond the Individual: Introducing Group Intention Forecasting with SHOT Dataset</h1>
+            
+            <div class="authors">
+                <a href="https://openreview.net/profile?id=~Ruixu_Zhang1">Ruixu Zhang</a><sup>1*</sup>, 
+                <a href="https://openreview.net/profile?id=~Yuran_Wang1">Yuran Wang</a><sup>1*</sup>, 
+                <a href="https://openreview.net/profile?id=~Xinyi_Hu4">Xinyi Hu</a><sup>1*</sup>, 
+                <a href="https://openreview.net/profile?id=~Chaoyu_Mai1">Chaoyu Mai</a><sup>1</sup>, 
+                <a href="https://openreview.net/profile?id=~Wenxuan_Liu1">Wenxuan Liu</a><sup>2</sup>, 
+                <a href="https://openreview.net/profile?id=~Danni_Xu3">Danni Xu</a><sup>3</sup>, 
+                <a href="https://openreview.net/profile?id=~Xian_Zhong1">Xian Zhong</a><sup>4</sup>, 
+                <a href="https://wangzwhu.github.io/home/">Zheng Wang</a><sup>1✉</sup>
+            </div>
+            
+            <div class="affiliation">
+                <sup>1</sup>School of Computer Science, Wuhan University<br>
+                <sup>2</sup>Peking University<br>
+                <sup>3</sup>School of Computing, National University of Singapore<br>
+                <sup>4</sup>Wuhan University of Technology
+            </div>
+            
+            <div class="report-type">Technical Report</div>
+            
+            <div class="buttons">
+                <a href="https://github.com/Xinyi-Hu/SHOT-Dataset" class="btn">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    Code
+                </a>
+                <a href="https://i6d8-my.sharepoint.com/:f:/g/personal/aimlab_i6d8_onmicrosoft_com/EnmYsStC_cNLjX02pydrS3kB1PQ65fUNcDkSYWO23S72vg?e=9epZ1g" class="btn">
+                    <svg class="icon" viewBox="0 0 24 24">
+                        <path d="M12,3C7.58,3 4,4.79 4,7C4,9.21 7.58,11 12,11C16.42,11 20,9.21 20,7C20,4.79 16.42,3 12,3M4,9V12C4,14.21 7.58,16 12,16C16.42,16 20,14.21 20,12V9C20,11.21 16.42,13 12,13C7.58,13 4,11.21 4,9M4,14V17C4,19.21 7.58,21 12,21C16.42,21 20,19.21 20,17V14C4,16.21 7.58,18 12,18C7.58,18 4,16.21 4,14Z"/>
+                    </svg>
+                    Dataset
+                </a>
+            </div>
+        </div>
+
+        <div class="overview-section">
+            <div class="image-container">
+                <img src="teaser9.jpg" alt="SHOT Dataset Overview">
+                <div class="image-caption">
+                    <strong>Overview.</strong> (a) Group Intention Forecasting task forecasts the occurrence time of group intentions by observing individual actions and interactions in early time; (b) The SHOT dataset provides 5 camera views videos and is annotated with 6 multi-individual attributes to describe the multi-level intention, including the group intention and the individual intention.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Abstract</h2>
+            <div class="abstract-content">
+                Intention recognition has traditionally focused on individual intentions, overlooking the complexities of collective intentions in group settings. To address this limitation, we introduce the concept of group intention, which represents shared goals emerging through the actions of multiple individuals, and Group Intention Forecasting (GIF), a novel task that forecasts when group intentions will occur by analyzing individual actions and interactions before the collective goal becomes apparent. To investigate GIF in a specific scenario, we propose <span class="highlight">SHOT</span>, the first large-scale dataset for GIF, consisting of 1,979 basketball video clips captured from 5 camera views and annotated with 6 types of individual attributes. SHOT is designed with 3 key characteristics: <strong>multi-individual information</strong>, <strong>multi-view adaptability</strong>, and <strong>multi-level intention</strong>, making it well-suited for studying emerging group intentions. Furthermore, we introduce <span class="highlight">GIFT</span> (Group Intention ForecasTer), a framework that extracts fine-grained individual features and models evolving group dynamics to forecast intention emergence. Experimental results confirm the effectiveness of SHOT and GIFT, establishing a strong foundation for future research in group intention forecasting.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Dataset Pipeline</h2>
+            <div class="image-container">
+                <img src="pipeline2.jpg" alt="Dataset Pipeline">
+                <div class="image-caption">
+                    <strong>Pipeline Overview.</strong> Collection: videos are sourced from NBA highlights and full-game replays, then compiled into an unlabeled pool. Categorization: clips are classified by camera view and tactical type. Annotation: features are labeled manually or via tracking models. Structure: video annotations are stored in a JSON file with this structure. Review: annotations are reviewed and relabeled as needed.
+                </div>
+            </div>
+            <div class="image-container">
+                <img src="table.png" alt="Dataset Comparison">
+                <div class="image-caption">
+                    <strong>Comparison.</strong> Comparison of the proposed SHOT dataset with existing datasets. SA: Sports Analysis, II: Individual Intention, GIF: Group Intention Forecasting.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Method</h2>
+            <div class="image-container">
+                <img src="method.jpg" alt="Method Overview">
+                <div class="image-caption">
+                    <strong>Method Overview.</strong> GIFT extracts bounding box, pose, gaze, headpose, velocity, and role features from the τ seen frames (τ ∈ {1, 2, ..., T}). The STGCN Encoder models spatial and temporal patterns. The STGCN Decoder forecasts future features, from which the shooting role is identified to determine the frame number.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Results</h2>
+            <div class="image-container">
+                <img src="result.png" alt="Experimental Results">
+                <div class="image-caption">
+                    <strong>Experimental Results.</strong> Quantitative comparison of leading methods on SHOT. Best performances are highlighted in bold.
+                </div>
+            </div>
+        </div>
+
+        <!-- Supplementary Materials Section -->
+        <div class="supplementary-section">
+            <h2 class="supplementary-title">Supplementary Materials</h2>
+            
+            <div class="overview-list">
+                <h3 style="color: #2c3e50; margin-bottom: 20px; font-size: 1.4rem;">Overview</h3>
+                <p style="margin-bottom: 20px; color: #34495e;">This supplementary is organized as follows:</p>
+                <ul>
+                    <li>Dataset Construction Details
+                        <ol>
+                            <li>Video Clip Selection</li>
+                            <li>View Categorization</li>
+                            <li>Tactic Categorization</li>
+                        </ol>
+                    </li>
+                    <li>Tactic Categorization Details
+                        <ol>
+                            <li>Hierarchical tactic categorization structure of <strong>SHOT</strong> dataset</li>
+                        </ol>
+                    </li>
+                    <li>Dataset Statistics
+                        <ol>
+                            <li>Number of videos for each NBA team playing at home</li>
+                            <li>Number of video clips per tactical categorization</li>
+                            <li>Frequency of tactics used by home NBA teams</li>
+                        </ol>
+                    </li>
+                    <li>Additional Video Examples of <strong>SHOT</strong></li>
+                </ul>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Dataset Construction</h3>
+                
+                <div class="subsubsection">
+                    <h4 class="subsubsection-title">Video Clip Selection</h4>
+                    <div class="supplementary-content">
+                        <p>We utilize the open-source software LosslessCut to extract shooting clips we want from the complete videos. We ensure that: (1) Each clip contains only a single offensive shooting attempt, regardless of its success. (2) All 10 players appear in the video clip, so the subsequent feature annotations cover every player.</p>
+                    </div>
+                    <div class="image-container">
+                        <img src="selection.png" alt="Video Clip Selection Process">
+                        <div class="image-caption">
+                            <strong>Illustration of the video clip selection process using LosslessCut.</strong> Shooting clips are manually trimmed by identifying their start and end time points, then exported for further processing.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsubsection">
+                    <h4 class="subsubsection-title">View Categorization</h4>
+                    <div class="supplementary-content">
+                        <p>Video clips are classified into 5 distinct views based on camera angles spaced 30° apart. Specifically, View3, being the central view and a frontal perspective, covers 60°.</p>
+                    </div>
+                    <div class="image-container">
+                        <img src="views.jpg" alt="View Categorization">
+                        <div class="image-caption">
+                            <strong>Illustration of View1--View5.</strong> Views 1, 2, 4, and 5 each span 30°, while View 3 covers the central 60°.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsubsection">
+                    <h4 class="subsubsection-title">Tactic Categorization</h4>
+                    <div class="supplementary-content">
+                        <p>We create a comprehensive classification of 54 tactics, capturing tactical performances from 5 different camera views. These 54 tactics thoroughly analyze and depict complex individual interactions and tactical coordination within basketball games across four progressive dimensions: pass frequency and pick&roll, which capture interactions between group members; drive, which indicates shooting intention; and shooting type, which highlights the individual features relevant to the shot.</p>
+                    </div>
+                    <div class="image-container">
+                        <img src="tactic_categorize.png" alt="Tactic Categorization Process">
+                        <div class="image-caption">
+                            <strong>Illustration of the tactic categorization process.</strong> Keywords observed in the video are selected and confirmed for saving.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Tactic Categorization Details</h3>
+                <div class="subsubsection">
+                    <h4 class="subsubsection-title">Hierarchical Structure of SHOT Dataset</h4>
+                    <div class="supplementary-content">
+                        <p>Each shooting video in SHOT is categorized by four tactical dimensions: <strong>Pass Frequency</strong> (No-Pass, One-Pass, Multi-Pass), <strong>Pick&Roll (P&R) Frequency</strong> (No-P&R, One-P&R, Multi-P&R), <strong>Drive Presence</strong> (Drive, No-Drive), and <strong>Shot Type</strong> (Shoot, Layup, Dunk). Their combinations define 54 distinct tactical scenes (3 × 3 × 2 × 3), capturing diverse basketball strategies.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Dataset Statistics</h3>
+                
+                <div class="supplementary-content">
+                    <p>We count the clips by the home team to aid further analysis of tactical characteristics for different teams. The analysis reveals interesting patterns in tactical preferences across different NBA divisions.</p>
+                </div>
+
+                <div class="subsubsection">
+                    <h4 class="subsubsection-title">NBA Teams Distribution</h4>
+                    <div class="image-container">
+                        <img src="teams2.jpg" alt="NBA Teams Distribution">
+                        <div class="image-caption">
+                            <strong>Number of videos for home NBA teams.</strong> Colors indicate different NBA divisions, with each box labeled by the team's abbreviation.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsubsection">
+                    <h4 class="subsubsection-title">Tactical Statistics</h4>
+                    <div class="image-container">
+                        <img src="graph7.jpg" alt="Full Tactical Statistics">
+                        <div class="image-caption">
+                            <strong>Number of video clips per tactical categorization.</strong> "1" and "M" denote "One" and "Multi", respectively; "P" and "D" represent "Pass" and "Drive"; while "ST", "LY", and "DK" correspond to "Shoot", "Layup", and "Dunk".
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsubsection">
+                    <h4 class="subsubsection-title">Team Tactical Preferences</h4>
+                    <div class="supplementary-content">
+                        <p>The relation between team information and tactical data reveals interesting patterns. For example, the Southeast Division favors the Multi-P&R tactic more than the Southwest Division, which supports the rationale for our dataset's emphasis on tactical information for predicting shot intention.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="subsection">
+                <h3 class="subsection-title">Additional Video Examples</h3>
+                <div class="supplementary-content">
+                    <p>The examples are selected from various camera views and tactic combinations. Each video clip is represented by multiple frames, illustrating the shooting progression and demonstrating the diversity of scenarios captured in the SHOT dataset.</p>
+                </div>
+                <div class="image-container">
+                    <img src="visulization.png" alt="Video Examples from SHOT Dataset">
+                    <div class="image-caption">
+                        <strong>Additional video examples from SHOT dataset.</strong> Examples are selected from various camera views and tactic combinations. Each video clip is represented by multiple frames, illustrating the shooting progression.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
