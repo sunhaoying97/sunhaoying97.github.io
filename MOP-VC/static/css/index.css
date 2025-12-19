@@ -768,7 +768,15 @@ code {
 .carousel .item video {
   margin-bottom: 10px;
 }
-
+@media (max-width: 768px) {
+  .complex-title {
+    font-size: 0.9rem;
+  }
+  
+  .caption-line {
+    font-size: 0.85rem;
+  }
+}
 /* Tablet Responsive */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
   .hero-body {
