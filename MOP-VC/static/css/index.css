@@ -748,13 +748,14 @@ a:focus {
     box-shadow: none !important;
   }
 }
-/* 视频标题样式 */
+/* 视频标题样式 - 修复版 */
 .video-caption {
   margin-top: 15px;
   padding: 15px;
   background-color: #f8f9fa;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #e9ecef;
 }
 
 .caption-lines {
@@ -766,10 +767,11 @@ a:focus {
   margin-bottom: 5px;
   font-size: 1rem;
   line-height: 1.4;
+  color: #333; /* 确保文字颜色可见 */
 }
 
 .caption-lines strong {
-  color: #333;
+  color: #2c3e50;
   font-weight: 600;
 }
 
@@ -782,8 +784,13 @@ a:focus {
 
 .video-id p {
   font-size: 0.9rem;
-  color: #666;
+  color: #495057; /* 更深的颜色确保可见性 */
   font-style: italic;
+  font-weight: 500;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
 }
 
 /* 颜色样式 */
@@ -811,4 +818,8 @@ a:focus {
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
+/* 为更好的可读性，添加一些通用样式 */
+p {
+  color: #333;
+}
 
