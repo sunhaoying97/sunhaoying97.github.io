@@ -767,7 +767,7 @@ a:focus {
   margin-bottom: 5px;
   font-size: 1rem;
   line-height: 1.4;
-  color: #2d3748; /* 深色文字确保可读性 */
+  color: #363636; /* 深色文字确保可读性 */
 }
 
 .caption-lines strong {
@@ -779,15 +779,15 @@ a:focus {
   text-align: center;
   margin-top: 10px;
   padding-top: 10px;
-  border-top: 1px solid #d1d9e6;
+  border-top: 1px solid #FFF2CC;
 }
 
 .video-id p {
   font-size: 0.9rem;
-  color: #ffffff !important; /* 白色字体 */
+  color: #363636 !important; /* 白色字体 */
   font-style: italic;
   font-weight: 500;
-  background-color: #4a5568; /* 深灰色背景，确保白色文字可读 */
+  background-color: #FFF2CC; /* 深灰色背景，确保白色文字可读 */
   padding: 5px 12px;
   border-radius: 20px; /* 圆角胶囊形状 */
   display: inline-block;
@@ -797,15 +797,19 @@ a:focus {
 
 /* 颜色样式 */
 .green-text {
-  color: #28a745;
+  color: #70AD47;
   font-weight: 600;
 }
 
 .red-text {
-  color: #dc3545;
+  color: #FF0000;
   font-weight: 600;
 }
 
+.yellow-text {
+  color: #FFC000;
+  font-weight: 600;
+}
 /* 确保轮播项内部布局正确 */
 .item {
   display: flex;
