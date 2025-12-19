@@ -417,7 +417,6 @@
 
 
 
-
 <!-- Video carousel -->
 <section class="hero is-small is-light">
   <div class="hero-body">
@@ -430,10 +429,17 @@
             <!-- Your video file here -->
             <source src="static/videos/carousel1.mp4" type="video/mp4">
           </video>
-          <!-- 添加的视频标题 -->
-          <h2 class="subtitle has-text-centered video-title">
-            Example 1: Demonstrating MoP-VC's syntactic understanding<br>Example 1: Demonstrating MoP-VC's syntactic understanding<br>Example 1: Demonstrating MoP-VC's syntactic understanding
-          </h2>
+          <!-- 修改后的视频标题 -->
+          <div class="video-title complex-title">
+            <div class="title-left">
+              <div class="caption-line">GT: a man is preparing a food dish</div>
+              <div class="caption-line">Baseline: a man is <span class="red-text">eating</span> food</div>
+              <div class="caption-line">Ours: a plate of food is being <span class="green-text">prepared</span></div>
+            </div>
+            <div class="title-center">
+              (a) MSRVTT ID: video7049
+            </div>
+          </div>
         </div>
         <div class="item item-video2">
           <!-- TODO: Add poster image for better preview -->
