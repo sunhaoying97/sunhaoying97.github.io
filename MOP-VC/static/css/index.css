@@ -713,6 +713,62 @@ code {
 .carousel .item video {
   margin-bottom: 10px;
 }
+
+/* 添加到 static/css/index.css 文件中 */
+.video-title {
+  margin-top: 15px;
+  font-weight: 600;
+  color: #333;
+  padding: 0 10px;
+}
+
+/* 复杂标题样式 */
+.complex-title {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.title-left {
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.title-center {
+  text-align: center;
+  margin-top: 5px;
+  font-style: italic;
+  color: #666;
+}
+
+.caption-line {
+  margin-bottom: 2px;
+  line-height: 1.4;
+}
+
+/* 颜色样式 */
+.red-text {
+  color: #e74c3c; /* 红色 */
+  font-weight: bold;
+}
+
+.green-text {
+  color: #27ae60; /* 绿色 */
+  font-weight: bold;
+}
+
+/* 如果希望标题在视频下方居中显示 */
+.carousel .item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.carousel .item video {
+  margin-bottom: 10px;
+}
+
 /* Tablet Responsive */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
   .hero-body {
