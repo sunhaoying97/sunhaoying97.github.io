@@ -752,7 +752,7 @@ a:focus {
 .video-caption {
   margin-top: 15px;
   padding: 15px;
-  background-color: #f5f7fa; /* 更浅的背景色 */
+  background-color: #FFF2CC; /* 更浅的背景色 */
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* 更柔和的阴影 */
   border: 1px solid #e1e5eb;
